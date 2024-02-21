@@ -1,1 +1,13 @@
-<p>dashboard works!</p>
+<form [formGroup]="parkingForm">
+  <label for="name">Name: </label>
+  <input id="name" type="text" formControlName="name" />
+  <br />
+
+  <label for="license">License no: </label>
+  <input id="license" type="text" formControlName="license" />
+  <br />
+
+  <label for="vehicleType">Vehicle Type: </label>
+  <input id="vehicleType" type="text" formControlName="vehicleType" />
+  <button (click)="onSubmit(parkingForm.value)">Add</button>
+</form>
