@@ -41,7 +41,7 @@ exports.updateTimeById = async (id) => {
   try {
     const updatedTime = await Parking.findByIdAndUpdate(
       id,
-      { departureTime: new Date() },
+      { departureTime: new Date(), flag: false },
       { new: true }
     );
     return updatedTime;
