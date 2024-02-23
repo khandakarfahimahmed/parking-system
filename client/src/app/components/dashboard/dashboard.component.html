@@ -14,3 +14,12 @@
   <input id="vehicleType" type="text" formControlName="vehicleType" required />
   <button type="submit">Submit</button>
 </form>
+
+<div *ngFor="let parking of parkingList">
+  <div class="card">
+    <p>Name: {{ parking.name }}</p>
+    <p>License: {{ parking.license }}</p>
+    <p>Vehicle Type: {{ parking.vehicleType }}</p>
+    <p>Arrival TIme: {{ parking.arrivalTime }}</p>
+  </div>
+</div>

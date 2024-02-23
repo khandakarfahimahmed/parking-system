@@ -9,6 +9,7 @@ import { Parking } from '../../interfaces/parking';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
+  parkingList: Parking[] = [];
   parkingForm = this.fb.group({
     name: new FormControl('', [Validators.required, Validators.minLength(5)]),
     license: new FormControl('', [
@@ -24,6 +25,9 @@ export class DashboardComponent {
     this.postDetails();
     this.parkingForm.reset();
   }
+  ngOnInit() {
+    this.getDetails();
+  }
   postDetails() {
     if (this.parkingForm.valid) {
       const { name, license, vehicleType } = this.parkingForm.value;
@@ -38,5 +42,11 @@ export class DashboardComponent {
         console.log(res);
       });
     }
+  }
+  getDetails() {
+    this.api.getParkingDetails().subscribe((res) => {
+      this.parkingList = res;
+      console.log(res);
+    });
   }
 }
