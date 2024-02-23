@@ -1,13 +1,16 @@
-<form [formGroup]="parkingForm">
+<form [formGroup]="parkingForm" (ngSubmit)="onSubmit()">
   <label for="name">Name: </label>
-  <input id="name" type="text" formControlName="name" />
+  <input id="name" type="text" formControlName="name" required />
   <br />
 
   <label for="license">License no: </label>
-  <input id="license" type="text" formControlName="license" />
+  <input id="license" type="text" formControlName="license" required />
+  <!-- <div *ngIf="parkingForm.get('license')?.errors?.['required']">
+    License is required.
+  </div> -->
   <br />
 
   <label for="vehicleType">Vehicle Type: </label>
-  <input id="vehicleType" type="text" formControlName="vehicleType" />
-  <button (click)="onSubmit(parkingForm.value)">Add</button>
+  <input id="vehicleType" type="text" formControlName="vehicleType" required />
+  <button type="submit">Submit</button>
 </form>

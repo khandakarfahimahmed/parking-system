@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiClientService {
-  url = 'http://localhost:3000/parking';
+  url = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 
   getParkingDetails(): Observable<Parking[]> {
@@ -17,7 +17,11 @@ export class ApiClientService {
   getGarageDetails(): Observable<Garage[]> {
     return this.http.get<Garage[]>(this.url + '/garage'); //need to write method to get garage details in server
   }
-  postParkingDetails(parking: Parking): Observable<Parking> {
-    return this.http.post<Parking>(this.url + '/parking', parking);
+  postParkingDetails(data: {
+    name: string;
+    license: string;
+    vehicleType: string;
+  }): Observable<Parking> {
+    return this.http.post<Parking>(this.url + '/parking', data); // Return the observable
   }
 }

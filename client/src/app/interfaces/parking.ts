@@ -1,9 +1,9 @@
 export interface Parking {
-  _id: string;
+  _id?: string;
   name: string;
   license: string;
   vehicleType: string;
-  flag: boolean;
-  arrivalTime: Date;
-  departureTime: Date;
+  flag?: boolean;
+  arrivalTime?: Date;
+  departureTime?: Date;
 }

@@ -1,11 +1,7 @@
-import { Component } from '@angular/core';
-import {
-  FormControl,
-  ReactiveFormsModule,
-  FormGroup,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { ApiClientService } from '../../services/api-client.service';
+import { Parking } from '../../interfaces/parking';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,18 +9,34 @@ import {
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
-  parkingForm = new FormGroup({
-    name: new FormControl(),
-    license: new FormControl(),
-    vehicleType: new FormControl(),
+  parkingForm = this.fb.group({
+    name: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    license: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
+    vehicleType: new FormControl('', [Validators.required]),
   });
 
-  // parkingFrom = this.formBuilder.group({
+  constructor(private fb: FormBuilder, private api: ApiClientService) {}
+  onSubmit() {
+    console.log(this.parkingForm.value);
+    this.postDetails();
+    this.parkingForm.reset();
+  }
+  postDetails() {
+    if (this.parkingForm.valid) {
+      const { name, license, vehicleType } = this.parkingForm.value;
 
-  // })
+      const parkingData: Parking = {
+        name: name || '',
+        license: license || '',
+        vehicleType: vehicleType || '',
+      };
 
-  constructor() {}
-  onSubmit(info: any) {
-    console.log(info);
+      this.api.postParkingDetails(parkingData).subscribe((res) => {
+        console.log(res);
+      });
+    }
   }
 }
